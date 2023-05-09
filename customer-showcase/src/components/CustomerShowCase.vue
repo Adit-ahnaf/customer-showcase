@@ -57,9 +57,68 @@ let arr = [
       {
         img: "https://swiperjs.com/demos/images/nature-3.jpg",
       },
+      {
+        img: "https://swiperjs.com/demos/images/nature-3.jpg",
+      },
+      {
+        img: "https://swiperjs.com/demos/images/nature-3.jpg",
+      },
+      {
+        img: "https://swiperjs.com/demos/images/nature-3.jpg",
+      },
+      {
+        img: "https://swiperjs.com/demos/images/nature-3.jpg",
+      },
+      {
+        img: "https://swiperjs.com/demos/images/nature-3.jpg",
+      },
     ],
   },
 
+  {
+    name: "item2",
+    subarr: [
+      {
+        img: "https://swiperjs.com/demos/images/nature-3.jpg",
+      },
+      {
+        img: "https://swiperjs.com/demos/images/nature-4.jpg",
+      },
+      {
+        img: "https://swiperjs.com/demos/images/nature-5.jpg",
+      },
+    ],
+  },
+
+  {
+    name: "item2",
+    subarr: [
+      {
+        img: "https://swiperjs.com/demos/images/nature-3.jpg",
+      },
+      {
+        img: "https://swiperjs.com/demos/images/nature-4.jpg",
+      },
+      {
+        img: "https://swiperjs.com/demos/images/nature-5.jpg",
+      },
+    ],
+  },
+
+  {
+    name: "item2",
+    subarr: [
+      {
+        img: "https://swiperjs.com/demos/images/nature-3.jpg",
+      },
+      {
+        img: "https://swiperjs.com/demos/images/nature-4.jpg",
+      },
+      {
+        img: "https://swiperjs.com/demos/images/nature-5.jpg",
+      },
+    ],
+  },
   {
     name: "item2",
     subarr: [
@@ -105,6 +164,28 @@ var swiper3 = new Swiper(".mySwiper3", {
   navigation: true,
   watchSlidesProgress: true,
 });
+
+// let el = document.querySelector('.hello')
+//   el.addEventListener('click', function () {
+//     console.log('clicked');
+//   })
+
+function sliderPrev() {
+  let test = document.querySelector('.mySwiper3').swiper;
+  test.slidePrev();
+}
+
+function sliderNext() {
+  let test = document.querySelector('.mySwiper3').swiper;
+  test.slideNext();
+}
+
+
+onMounted(()=>{
+
+})
+
+
 </script>
 
 <template>
@@ -161,7 +242,7 @@ var swiper3 = new Swiper(".mySwiper3", {
       slides-per-view="1"
       free-mode="false"
       watch-slides-progress="true"
-      :navigation="true"
+      :navigation="false"
       :breakpoints="{480:{slidesPerView:2, navigation: true}, 900:{slidesPerView:3}, 1367:{slidesPerView:4}}"
       @click="slideRight"
     >
@@ -174,8 +255,8 @@ var swiper3 = new Swiper(".mySwiper3", {
       </swiper-slide>
     </swiper-container>
 
-    <div class="swiper-button-prev"></div>
-    <div class="swiper-button-next"></div>
+    <button @click="sliderPrev" class="swiper-button-prev prevSl3"></button>
+    <button @click="sliderNext" class="swiper-button-next nextSl3"></button>
 
     <div class="shw-car_form">
       <h4 class="shw-car_form_head">Search Car Photos</h4>
@@ -192,10 +273,49 @@ var swiper3 = new Swiper(".mySwiper3", {
 
 <style>
 
-
-.mySwiper3 [class^="swiper-button-"]::after{
-    color: red !important;
+.nextSl3 {
+  right: 2%;
+  top: 61%;
+  padding: 15px;
+    box-shadow: #64646f33 0 7px 29px;
+    border: none;
+    cursor: pointer;
+    box-shadow: #0000003d 0 3px 8px;
+    border-radius: 8px;
+    background-color: #fff;
 }
+
+.nextSl3:hover{
+  background-color: #ea0029;
+}
+
+
+.nextSl3::after{
+  content: url('../assets/icons/nextBtn.svg');
+  color : red !important;
+  height: 58px;
+}
+
+.prevSl3 {
+    left: 2%;
+    top: 61%;  
+    padding: 15px;
+    box-shadow: #64646f33 0 7px 29px;
+    border: none;
+    cursor: pointer;
+    box-shadow: #0000003d 0 3px 8px;
+    border-radius: 8px;
+    background-color: #fff;
+}
+ .prevSl3::after{
+  content: url('../assets/icons/prevarw.svg');
+  color : red !important;
+  height: 58px;
+ }
+
+ .prevSl3:hover{
+  background: #ea0029;
+ }
 
 .swiper-button-next,
 .swiper-container-rtl .swiper-button-prev,
