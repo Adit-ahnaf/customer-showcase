@@ -10,37 +10,91 @@ import arwleft from "../components/icons/arwleft.vue";
 import arwright from "../components/icons/arwright.vue";
 
 
+const selectedArr = ref([
+  {
+    name: "item1",
+    subarr: [
+      { img: "https://swiperjs.com/demos/images/nature-1.jpg" },
+      { img: "https://swiperjs.com/demos/images/nature-2.jpg" },
+      { img: "https://swiperjs.com/demos/images/nature-3.jpg" },
+    ],
+  },
+]);
 
-function slideRight() {
+const swiperOptions = ref({
+  breakpoints:{
+    768: {       
+         slidesPerView: 1,
+         spaceBetween: 10     
+      },
+  }
+});
+const top = ref(0);
 
-  const buttonEl = document.getElementById('btnrght');
-  console.log('buttonEl', buttonEl)
-  buttonEl.addEventListener('click', () => {
+function slideRight(event) {
+  console.log("event", event.target.getAttribute("src"));
 
-    sswiper.slideNext();
-
-
+  let selectImg = event.target.getAttribute("src");
+  let fnd = arr.find((item) => {
+    return item.subarr[0].img == selectImg;
   });
 
+  selectedArr.value = fnd;
+  window.scrollTo(0, top);
+  console.log("fnd", fnd);
 }
 
+let arr = [
+  {
+    name: "item1",
+    subarr: [
+      {
+        img: "https://swiperjs.com/demos/images/nature-1.jpg",
+      },
+      {
+        img: "https://swiperjs.com/demos/images/nature-2.jpg",
+      },
+      {
+        img: "https://swiperjs.com/demos/images/nature-3.jpg",
+      },
+    ],
+  },
+
+  {
+    name: "item2",
+    subarr: [
+      {
+        img: "https://swiperjs.com/demos/images/nature-3.jpg",
+      },
+      {
+        img: "https://swiperjs.com/demos/images/nature-4.jpg",
+      },
+      {
+        img: "https://swiperjs.com/demos/images/nature-5.jpg",
+      },
+    ],
+  },
+];
 
 var sswiper = new Swiper(".mySwiper", {
   spaceBetween: 10,
   slidesPerView: 4,
   freeMode: true,
   watchSlidesProgress: true,
-
 });
 
 var swiper2 = new Swiper(".mySwiper2", {
   spaceBetween: 10,
+  breakpoints:{
+    768: {
+      slidesPerView:2,
+      spaceBetween: 10,
+    }
+  },
   navigation: {
     nextEl: "#js-prev1",
-    // prevEl: ".swiper-button-prev",
   },
   thumbs: {
-    // swiper: swiper,
   },
 });
 
@@ -51,118 +105,38 @@ var swiper3 = new Swiper(".mySwiper3", {
   navigation: true,
   watchSlidesProgress: true,
 });
-
-
 </script>
 
 <template>
+  <h1 class="cstmshw-title page-width">Customer Showcase</h1>
+  <div class="sldcont1">
+    <swiper-container
+      style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff"
+      class="mySwiper"
+      thumbs-swiper=".mySwiper2"
+      space-between="10"
+      navigation="true"
+    >
+      <swiper-slide v-for="(item, index) in selectedArr.subarr" :key="index">
+        <img class="sliderimg_1" :src="`${item.img}`" />
+      </swiper-slide>
+    </swiper-container>
+  </div>
   <div class="page-width">
-    <h1 class="cstmshw-title">Customer Showcase</h1>
-    <div class="sldcont1">
-      <swiper-container
-        style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff"
-        class="mySwiper"
-        thumbs-swiper=".mySwiper2"
-        space-between="10"
-        navigation="true"
-      >
-        <swiper-slide>
-          <img src="https://swiperjs.com/demos/images/nature-1.jpg" />
-        </swiper-slide>
-        <swiper-slide>
-          <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
-        </swiper-slide>
-        <swiper-slide>
-          <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
-        </swiper-slide>
-        <swiper-slide>
-          <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
-        </swiper-slide>
-        <swiper-slide>
-          <img src="https://swiperjs.com/demos/images/nature-5.jpg" />
-        </swiper-slide>
-        <swiper-slide>
-          <img src="https://swiperjs.com/demos/images/nature-6.jpg" />
-        </swiper-slide>
-        <swiper-slide>
-          <img src="https://swiperjs.com/demos/images/nature-7.jpg" />
-        </swiper-slide>
-        <swiper-slide>
-          <img src="https://swiperjs.com/demos/images/nature-8.jpg" />
-        </swiper-slide>
-        <swiper-slide>
-          <img src="https://swiperjs.com/demos/images/nature-9.jpg" />
-        </swiper-slide>
-        <swiper-slide>
-          <img src="https://swiperjs.com/demos/images/nature-10.jpg" />
-        </swiper-slide>
-      </swiper-container>
-
-    </div>
-
     <swiper-container
       class="mySwiper2"
       space-between="10"
-      slides-per-view="4"
+      slides-per-view="2"
       free-mode="true"
       watch-slides-progress="true"
+      :breakpoints="{480:{slidesPerView:2}, 900:{slidesPerView:3}, 1367:{slidesPerView:4}}"
     >
-      <swiper-slide class="thumbs-cell">
-        <img
-          class="thumbs-img"
-          src="https://swiperjs.com/demos/images/nature-1.jpg"
-        />
-      </swiper-slide>
-      <swiper-slide class="thumbs-cell">
-        <img
-          class="thumbs-img"
-          src="https://swiperjs.com/demos/images/nature-2.jpg"
-        />
-      </swiper-slide>
-      <swiper-slide class="thumbs-cell">
-        <img
-          class="thumbs-img"
-          src="https://swiperjs.com/demos/images/nature-3.jpg"
-        />
-      </swiper-slide>
-      <swiper-slide class="thumbs-cell">
-        <img
-          class="thumbs-img"
-          src="https://swiperjs.com/demos/images/nature-4.jpg"
-        />
-      </swiper-slide>
-      <swiper-slide class="thumbs-cell">
-        <img
-          class="thumbs-img"
-          src="https://swiperjs.com/demos/images/nature-5.jpg"
-        />
-      </swiper-slide>
-      <swiper-slide class="thumbs-cell">
-        <img src="https://swiperjs.com/demos/images/nature-6.jpg" />
-      </swiper-slide>
-      <swiper-slide class="thumbs-cell">
-        <img
-          class="thumbs-img"
-          src="https://swiperjs.com/demos/images/nature-7.jpg"
-        />
-      </swiper-slide>
-      <swiper-slide class="thumbs-cell">
-        <img
-          class="thumbs-img"
-          src="https://swiperjs.com/demos/images/nature-8.jpg"
-        />
-      </swiper-slide>
-      <swiper-slide class="thumbs-cell">
-        <img
-          class="thumbs-img"
-          src="https://swiperjs.com/demos/images/nature-9.jpg"
-        />
-      </swiper-slide>
-      <swiper-slide class="thumbs-cell">
-        <img
-          class="thumbs-img"
-          src="https://swiperjs.com/demos/images/nature-10.jpg"
-        />
+      <swiper-slide
+        v-for="(item, index) in selectedArr.subarr"
+        :key="index"
+        class="thumbs-cell"
+      >
+        <img class="slide_img2" :src="`${item.img}`" />
       </swiper-slide>
     </swiper-container>
 
@@ -180,72 +154,28 @@ var swiper3 = new Swiper(".mySwiper3", {
     <p class="cstmshw-sbmby">Submitted By</p>
     <p class="cstmshw-sbmby-des">James Smith</p>
 
+    <p class="cstmshw-morecarcase">more showcase car photos</p>
     <swiper-container
       class="mySwiper3"
-      space-between="10"
-      slides-per-view="4"
-      free-mode="true"
+      space-between="30"
+      slides-per-view="1"
+      free-mode="false"
       watch-slides-progress="true"
-      :navigation="true" 
+      :navigation="true"
+      :breakpoints="{480:{slidesPerView:2, navigation: true}, 900:{slidesPerView:3}, 1367:{slidesPerView:4}}"
+      @click="slideRight"
     >
-      <swiper-slide class="thumbs-cell">
-        <img
-          class="thumbs-img"
-          src="https://swiperjs.com/demos/images/nature-1.jpg"
-        />
-      </swiper-slide>
-      <swiper-slide class="thumbs-cell">
-        <img
-          class="thumbs-img"
-          src="https://swiperjs.com/demos/images/nature-2.jpg"
-        />
-      </swiper-slide>
-      <swiper-slide class="thumbs-cell">
-        <img
-          class="thumbs-img"
-          src="https://swiperjs.com/demos/images/nature-3.jpg"
-        />
-      </swiper-slide>
-      <swiper-slide class="thumbs-cell">
-        <img
-          class="thumbs-img"
-          src="https://swiperjs.com/demos/images/nature-4.jpg"
-        />
-      </swiper-slide>
-      <swiper-slide class="thumbs-cell">
-        <img
-          class="thumbs-img"
-          src="https://swiperjs.com/demos/images/nature-5.jpg"
-        />
-      </swiper-slide>
-      <swiper-slide class="thumbs-cell">
-        <img src="https://swiperjs.com/demos/images/nature-6.jpg" />
-      </swiper-slide>
-      <swiper-slide class="thumbs-cell">
-        <img
-          class="thumbs-img"
-          src="https://swiperjs.com/demos/images/nature-7.jpg"
-        />
-      </swiper-slide>
-      <swiper-slide class="thumbs-cell">
-        <img
-          class="thumbs-img"
-          src="https://swiperjs.com/demos/images/nature-8.jpg"
-        />
-      </swiper-slide>
-      <swiper-slide class="thumbs-cell">
-        <img
-          class="thumbs-img"
-          src="https://swiperjs.com/demos/images/nature-9.jpg"
-        />
-      </swiper-slide>
-      <swiper-slide class="thumbs-cell">
-        <img
-          class="thumbs-img"
-          src="https://swiperjs.com/demos/images/nature-10.jpg"
-        />
+      <swiper-slide
+        v-for="(item, index) in arr"
+        :key="index"
+        class="thumbs-cell"
+      >
+        <img class="thumbs-img" :src="`${item.subarr[0].img}`" />
       </swiper-slide>
     </swiper-container>
+
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
 
     <div class="shw-car_form">
       <h4 class="shw-car_form_head">Search Car Photos</h4>
@@ -258,19 +188,31 @@ var swiper3 = new Swiper(".mySwiper3", {
     </div>
   </div>
 </template>
-<style >
-.thumbs-img {
-  /* height: 200px !important; */
+
+
+<style>
+
+
+.mySwiper3 [class^="swiper-button-"]::after{
+    color: red !important;
 }
 
 .swiper-button-next,
 .swiper-container-rtl .swiper-button-prev,
-.swiper-button-prev, 
-.swiper-container-rtl .swiper-button-next{
-    background-image: none;
+.swiper-button-prev,
+.swiper-container-rtl .swiper-button-next {
+  background-image: none;
 }
 
+.thumbs-img {
+  transition: all 0.3s ease;
+  overflow: hidden;
+  cursor: pointer;
+}
 
+.thumbs-img:hover {
+  transform: scale(1.1);
+}
 .thumbs-cell {
   height: 200px !important;
 }
@@ -308,10 +250,10 @@ swiper-slide {
   opacity: 1;
 }
 
-swiper-slide img {
+.sliderimg_1 {
   display: block;
   width: 100%;
-  height: 500px !important;
+  height: 500px ;
   object-fit: cover;
 }
 
@@ -327,6 +269,11 @@ swiper-slide {
   display: flex;
   justify-content: center;
   align-items: center;
+  
+}
+
+swiper-slide .swiper-button-next {
+  display: none;
 }
 
 swiper-slide img {
@@ -389,13 +336,13 @@ swiper-slide img {
   font-size: 25px;
   font-weight: 700;
   color: #464646;
-  margin: 50px 0px 12px;
+  margin: 35px 0px 8px;
 }
 
 .cstmshw-sbmby-des {
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 300;
-  margin-bottom: 25px;
+  margin-bottom: 40px;
 }
 
 .shw-car_form {
@@ -404,6 +351,7 @@ swiper-slide img {
   border: 1px solid #a7a7a7;
   border-radius: 16px;
   width: 70%;
+  margin: 60px 0px 80px;
 }
 
 .shw-car_form_head {
@@ -428,12 +376,10 @@ swiper-slide img {
   font-size: 16px;
   line-height: 27px;
   display: block;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
 }
 
-.shw-car_form {
-  margin: 50px 0px;
-}
+
 
 .search_input_btn {
   color: #fff;
@@ -448,6 +394,8 @@ swiper-slide img {
 
 .sldcont1 {
   position: relative;
+  margin: 0 auto;
+  padding: 0 3.5rem;
 }
 
 .sld1_arrwleft {
@@ -490,5 +438,157 @@ swiper-slide img {
 
 .sld1_arrwleft:hover .icn-slide {
   fill: white !important;
+}
+
+.cstmshw-morecarcase {
+  font-size: 25px;
+  font-weight: 700;
+  color: #ea0029;
+  margin: 0px 0px 8px;
+}
+
+@media screen and (max-width: 900px) {
+  .sldcont1 {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+@media screen and (max-width: 768px) {
+
+  .cstmshw-title{
+    font-size: 25px;
+    margin-bottom: 20px;
+  }
+  .page-width {
+    padding: 0 2.5rem;
+  }
+  .cstmshw-destitle{
+    font-size: 18px;
+    margin: 27px 0px 12px;
+  }
+  .cstmshw-des{
+    font-size: 16px;
+  }
+  .cstmshw-sbmby{
+    font-size: 18px;
+    margin: 27px 0px 8px;
+  }
+  .cstmshw-sbmby-des{
+    margin-bottom: 25px;
+    font-size: 16px;
+  }
+
+  .cstmshw-morecarcase{
+    font-size: 18px;
+  }
+  .cstmshw-morecarcase {
+    margin-bottom: 20px;
+  }
+  .shw-car_form {
+    width: 100%;
+    margin: 55px 0px 65px;
+  }
+  .shw-car_inputfield{
+    width: 100%;
+    margin-bottom: 27px;
+  }
+  .shw-car_form_head {
+    font-size: 18px;
+  }
+  .search_input_label {
+    font-size: 16px;
+  }
+  .shw-car_form_head {
+    margin-bottom: 11px;
+  }
+  .search_input_btn{
+    width: 100%;
+    padding: 9px 48px;
+  }
+  .slide_img2{
+    height: 140px;
+  }
+  .mySwiper2 {
+    padding: 0px;
+  }
+  .mySwiper {
+    margin-bottom: 0px;
+  }
+  .cstmshw-destitle {
+    margin-top: 10px;
+  }
+
+  .sliderimg_1 {
+    height: 250px;
+  }
+
+}
+
+@media screen and (max-width: 480px) {
+  .cstmshw-destitle {
+    margin-top: 0px !important;
+  }
+  .slide_img2 {
+    height: 125px;
+  }
+  .page-width{
+    padding: 0 1.5rem;
+  }
+
+  .cstmshw-title {
+    font-size: 22px;
+  }
+
+  .cstmshw-title {
+    margin-bottom: 25px;
+  }
+  .cstmshw-destitle {
+    margin: 21px 0px 12px;
+    font-size: 16px;
+  }
+  .cstmshw-des {
+    font-size: 14px;
+  }
+  .cstmshw-sbmby {
+    font-size: 16px;
+    margin-top: 25px;
+  }
+  .cstmshw-sbmby-des {
+    font-size: 14px;
+    margin-bottom: 30px;
+  }
+  .cstmshw-morecarcase {
+    font-size: 18px;
+  }
+
+  .shw-car_form {
+    width: 100%;
+  }
+
+  .shw-car_form_head {
+    font-size: 18px;
+  }
+  .search_input_label {
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+  .shw-car_form_head{
+    margin-bottom: 10px;
+  }
+  .shw-car_inputfield {
+    width: 100%;
+  }
+  .shw-car_form{
+    margin: 51px 0px 63px;;
+  }
+  .search_input_btn{
+    width: 100%;
+    padding: 9px 48px;
+  }
+  .swiper-button-next {
+    display: none;
+  }
+  
 }
 </style>
